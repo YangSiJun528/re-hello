@@ -1,10 +1,7 @@
 package dev.yangsijun.rehello.user.domain;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -19,21 +16,29 @@ import java.util.UUID;
 public class User {
 
     @Id
+    @NonNull
     private UUID id;
 
+    @NonNull
     private String name;
 
+    @NonNull
     private String phoneNumber;
 
+    @NonNull
     private LocalDate birth;
 
+    @NonNull
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
+    @NonNull
     private String provider;
 
+    @NonNull
     private String providerId;
 
+    @NonNull
     @Enumerated(EnumType.STRING)
     private Role role;
 }

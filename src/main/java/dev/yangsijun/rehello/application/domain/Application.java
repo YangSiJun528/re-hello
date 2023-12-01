@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import java.util.UUID;
 
@@ -18,7 +19,13 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Application {
 
+    /*
+     * 필드에 @Column(nullable = false) 대신 @NotNull가 더 나을듯
+     * 환경변수 설정하면 ddl-auto: none 에도 validation 수행 가능
+     * https://jeong-pro.tistory.com/233 참고
+     */
     @Id
+    @NonNull
     private UUID id;
 
     //@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER, optional = false)
