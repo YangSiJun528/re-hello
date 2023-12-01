@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 /**
- * 본인인증이 완료된 사용자를 저장하는 엔티티.
+ * 본인인증이 완료된 사용자 정보를 관리하는 엔티티.
  */
 @Entity
 @Getter
