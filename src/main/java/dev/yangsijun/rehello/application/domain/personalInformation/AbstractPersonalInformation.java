@@ -1,84 +1,69 @@
-package dev.yangsijun.rehello.application.domain.vo;
+package dev.yangsijun.rehello.application.domain.personalInformation;
 
 import dev.yangsijun.rehello.application.domain.enums.GraduationStatus;
 import dev.yangsijun.rehello.application.domain.enums.Major;
-import dev.yangsijun.rehello.application.domain.enums.Screening;
 import dev.yangsijun.rehello.user.domain.Gender;
 import jakarta.annotation.Nullable;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.AssertFalse;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import java.time.LocalDate;
 import java.util.Set;
 import java.util.UUID;
 
-/**
- * Application 생성 시 사용하는 객체.
- * lombok.NonNull가 정의된 경우, null 값이 들어온다면 에러 발생
- * @see ApplicationCreateTest
- */
-@With
-@Builder
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class ApplicationCreate {
-    @NonNull
-    public final UUID id;
+@DiscriminatorColumn(name = "personal_information_type", discriminatorType = DiscriminatorType.STRING)
+public abstract class AbstractPersonalInformation {
 
-    @NonNull
+    @Id
+    public UUID id;
+
+    @NotNull
     private String applicantImageUri;
 
-    @NonNull
+    @NotNull
     private String applicantName;
 
-    @NonNull
+    @NotNull
     private Gender applicantGender;
 
-    @NonNull
+    @NotNull
     private LocalDate applicantBirth;
 
-    @NonNull
+    @NotNull
     private String address;
 
-    @NonNull
+    @NotNull
     private String detailAddress;
 
-    @NonNull
+    @NotNull
     private GraduationStatus graduation;
 
     @Nullable
     private String telephone;
 
-    @NonNull
+    @NotNull
     private String applicantPhoneNumber;
 
-    @NonNull
+    @NotNull
     private String guardianName;
 
-    @NonNull
+    @NotNull
     private String relationWithApplicant;
 
-    @NonNull
-    private String guardianPhoneNumber;
-
-    @Nullable
-    private String schoolName;
-
-    @Nullable
-    private String schoolLocation;
-
-    @Nullable
-    private String teacherName;
-
-    @Nullable
-    private String teacherPhoneNumber;
-
-    @NonNull
-    private Screening screening;
-
-    @NonNull
+    // 인적사항에 있는게 맞나?
+    // 아니면 인적사항 엔티티 이름을 변경하거나
     @Size(min = 3, max = 3)
-    public final Set<Major> desiredMajors;
+    private Set<Major> desiredMajors;
 
     @AssertFalse(message = "모든 필드는 정의되어야 합니다. null일 수 없습니다.")
     private boolean hasNullMajor() {
