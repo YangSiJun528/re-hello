@@ -20,13 +20,13 @@ public class TestCommandLineRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        vehicleRepository.deleteAll();
-        abstractUserRepository.deleteAll();
-        creatTest();
-        var vehicles = vehicleRepository.findAll();
-        var abstractUsers = abstractUserRepository.findAll();
-        System.out.println(vehicles);
-        System.out.println(abstractUsers);
+//        vehicleRepository.deleteAll();
+//        abstractUserRepository.deleteAll();
+//        creatTest();
+//        var vehicles = vehicleRepository.findAll();
+//        var abstractUsers = abstractUserRepository.findAll();
+//        System.out.println(vehicles);
+//        System.out.println(abstractUsers);
     }
 
     public void creatTest() {
