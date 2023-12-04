@@ -11,19 +11,19 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.util.Set;
-import java.util.UUID;
 
 /**
- * Application 생성 시 사용하는 객체.
+ * Application 생성/수정 시 사용하는 객체.
+ *
+ * 생성/수정 객체 분리하기 귀찮아서 하나로 구현했는데, 실제 구현 시에는 따로 구현
+ *
  * lombok.NonNull가 정의된 경우, null 값이 들어온다면 에러 발생
  * @see ApplicationCreateTest
  */
 @With
-@Builder
+@Getter
 @AllArgsConstructor
-public class ApplicationCreate {
-    @NonNull
-    public final UUID id;
+public class AbstractApplicationCommand { // 추상 클래스 쓰면 구현체에서 wither 구현해야 해서 일단 추상클래스 사용 X
 
     @NonNull
     private String applicantImageUri;
@@ -61,27 +61,17 @@ public class ApplicationCreate {
     @NonNull
     private String guardianPhoneNumber;
 
-    @Nullable
-    private String schoolName;
-
-    @Nullable
-    private String schoolLocation;
-
-    @Nullable
-    private String teacherName;
-
-    @Nullable
-    private String teacherPhoneNumber;
-
     @NonNull
     private Screening screening;
 
     @NonNull
     @Size(min = 3, max = 3)
-    public final Set<Major> desiredMajors;
+    public Set<Major> desiredMajors;
 
     @AssertFalse(message = "모든 필드는 정의되어야 합니다. null일 수 없습니다.")
     private boolean hasNullMajor() {
         return desiredMajors.contains(null);
     }
+
+    public abstract boolean isSupportGraduationStatus(GraduationStatus graduationStatus);
 }
